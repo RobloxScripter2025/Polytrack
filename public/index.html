@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>PolyTrack — Time Trial</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="/style.css">
+  <!-- Three.js from CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.153.0/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.153.0/examples/js/controls/OrbitControls.js"></script>
+</head>
+<body>
+  <div id="app">
+    <header>
+      <h1>PolyTrack</h1>
+      <div class="tabs">
+        <button id="tab-game" class="active">Play</button>
+        <button id="tab-editor">Editor</button>
+      </div>
+    </header>
+
+    <main>
+      <section id="play" class="pane">
+        <div class="sidebar">
+          <label>Track:
+            <select id="trackSelect"></select>
+          </label>
+          <label>Your name: <input id="playerName" placeholder="Player" /></label>
+          <div class="controls">
+            <p>Controls: W/A/S/D or Arrow keys. R to reset.</p>
+            <button id="startRun">Start Run</button>
+            <button id="resetCar">Reset Car</button>
+          </div>
+          <h3>Leaderboard</h3>
+          <ol id="leaderboard"></ol>
+        </div>
+        <div id="canvasWrap">
+          <canvas id="gameCanvas"></canvas>
+          <div id="hud">
+            <div>Time: <span id="timeDisplay">0.000</span>s</div>
+            <div id="status">Status: Ready</div>
+          </div>
+        </div>
+      </section>
+
+      <section id="editor" class="pane hidden">
+        <div class="sidebar">
+          <label>Track ID: <input id="editorId" placeholder="my-track" /></label>
+          <label>Track name: <input id="editorName" placeholder="My Track" /></label>
+          <button id="newPoint">Add Point (click in scene)</button>
+          <button id="saveTrack">Save Track</button>
+          <p>Click on the 3D view to add control points. Use orbit controls to view.</p>
+        </div>
+        <div id="editorWrap">
+          <canvas id="editorCanvas"></canvas>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="/game.js"></script>
+  <script src="/editor.js"></script>
+  <script>
+    // simple tab switching
+    document.getElementById('tab-game').onclick = () => {
+      document.getElementById('play').classList.remove('hidden');
+      document.getElementById('editor').classList.add('hidden');
+      document.getElementById('tab-game').classList.add('active');
+      document.getElementById('tab-editor').classList.remove('active');
+    };
+    document.getElementById('tab-editor').onclick = () => {
+      document.getElementById('play').classList.add('hidden');
+      document.getElementById('editor').classList.remove('hidden');
+      document.getElementById('tab-editor').classList.add('active');
+      document.getElementById('tab-game').classList.remove('active');
+    };
+  </script>
+</body>
+</html>
